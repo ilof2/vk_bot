@@ -9,14 +9,16 @@ class Keyboard():
 	def get_body(self):
 		return json.dumps(self.body, indent=2, ensure_ascii = False)
 
+	#spliting list for kbrd vk (should be less than 4 elements in line)
 	def __parting_list(self):
 		C = []
 		for button in self.buttons:
 			C.append(self.get_btn(button, 'primary'))
 
 		half = len(C)//2
-		return C[:half], C[half:]	
-
+		return C[:half], C[half:]
+		
+	# constructor for btn
 	def get_btn(self, text, color):
 		btn = { 
         		"action": { 
@@ -30,7 +32,7 @@ class Keyboard():
 		btn['color'] = color
 		return btn
 
-
+	# creating table of btn
 	def create_table(self):
 		len_list = len(self.buttons)
 		if self.buttons:
@@ -41,4 +43,4 @@ class Keyboard():
 				self.body['buttons'].insert(0, B)
 				self.body['buttons'].insert(0, A)
 		else:
-			self.new_body()
+			pass
