@@ -41,10 +41,9 @@ def removing_tmp_file(path):
 def parsing(message, user_id):
 	user_id = str(user_id)
 	message = message.upper()
-	if message.lower() == 'перевыбрать группу':
+	if message.lower() == 'перевыбрать группу' or message.lower()=='начать':
 		removing_tmp_file('tmp/'+user_id)
 		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Первые 2 бувы своей специальности:"}
-
 
 
 	elif message in arguments.specializace:
