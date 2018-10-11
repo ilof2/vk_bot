@@ -73,7 +73,7 @@ def parsing(message, user_id):
 	else:
 		# убрано удаление, т.к. сервер может отправить 2 сообщения, и при этом удаляет временный файл, когда это не нужно
 		# removing_tmp_file('tmp/'+user_id)
-		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так, попробуйте заново набрать группу"}
+		return {"keyboard": groups_spec_kbrd.get_body(), "message": "хостинг забыл вашу группу, впишите ее заново"}
 
 
 
