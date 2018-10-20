@@ -38,14 +38,29 @@ def removing_tmp_file(path):
 		os.remove(path)
 
 
+def write_user(user_id, message):
+	if not os.path.exists('tmp/'):
+		os.mkdir('tmp/')
+	with open('tmp/' + user_id, 'w') as file:
+		file.write(message)
+
+
+def read_user(user_id):
+	try:
+		with open('tmp/' + user_id, 'r') as file:
+			return file.read()
+	except:
+		return None
+
 def parsing(message, user_id):
 	user_id = str(user_id)
 	message = message.upper()
-	if message.lower() == 'перевыбрать группу' or message.lower()=='начать':
+	if message.lower() == 'сменить группу' or message.lower()=='начать':
 		removing_tmp_file('tmp/'+user_id)
 		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Первые 2 бувы своей специальности:"}
 
-	elif message.lower() == '/help' or message.lower == '/помощь':
+
+	elif message.lower() == '/help' or message.lower() == '/помощь':
 		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Если не появилась клавиатура, напишите полное название вашей группы (ПО711, Ро611) и затем день недели (пн, вт)"}
 
 	elif message in arguments.specializace:
@@ -55,22 +70,18 @@ def parsing(message, user_id):
 
 
 	elif message in arguments.group_full:
-		if not os.path.exists('tmp/'):
-			os.mkdir('tmp/')
-		with open('tmp/' + user_id, 'w') as file:
-			file.write(message)
+		write_user(user_id,message)
 		return {"keyboard": week_day_kbrd.get_body(), "message": "День недели:"}
 
 	elif message.lower() in arguments.DAYS:
-		try:
-			with open('tmp/' + user_id, 'r') as file:
-				user_group = file.read()
+		user_group = read_user(user_id)
+		if user_group:
 			return {"keyboard":week_day_kbrd.get_body(), "message": reader(message.lower(), user_group)}
-		except:
-	        	return {"keyboard": groups_spec_kbrd.get_body(), "message": "Проверьте написание дня недели (пн, вт, ср)"}
+		else:
+			return {"keyboard": groups_spec_kbrd.get_body(), "message": "Проверьте написание дня недели (пн, вт, ср)"}
 
 	else:
-            return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так"}
+		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так"}
 
 
 

@@ -3,7 +3,7 @@ import json
 class Keyboard():
 
 	def __init__(self, buttons):
-		self.body = {"one_time": False,"buttons": [[self.get_btn('перевыбрать группу', 'positive')]]}
+		self.body = {"one_time": False,"buttons": [[self.get_btn('сменить группу', 'positive')]]}
 		self.buttons = buttons
 
 	def get_body(self):
@@ -37,7 +37,7 @@ class Keyboard():
 		len_list = len(self.buttons)
 		if self.buttons:
 			if len_list == 1:
-				self.body = {"one_time": False,"buttons": [[self.get_btn(self.buttons[0], 'primary')],[self.get_btn('перевыбрать группу', 'positive')]]}
+				self.body = {"one_time": False,"buttons": [[self.get_btn(self.buttons[0], 'primary')],[self.get_btn('сменить группу', 'positive')]]}
 			else:
 				A, B = self.__parting_list()
 				self.body['buttons'].insert(0, B)
