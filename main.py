@@ -50,30 +50,25 @@ def parsing(message, user_id):
 	elif message in arguments.specializace:
 		groups_num_kbrd = Keyboard(arguments.gnums[message])
 		groups_num_kbrd.create_table()
-		return{"keyboard": groups_num_kbrd.get_body(), "message": "Полное название вашей группы:"}
+		return {"keyboard": groups_num_kbrd.get_body(), "message": "Полное название вашей группы:"}
 
 
 	elif message in arguments.group_full:
-			if not os.path.exists('tmp/'):
-				os.mkdir('tmp/')
-			with open('tmp/' + user_id, 'w') as file:
-
-				file.write(message)
-			return{"keyboard": week_day_kbrd.get_body(), "message": "День недели:"}
-
+		if not os.path.exists('tmp/'):
+			os.mkdir('tmp/')
+		with open('tmp/' + user_id, 'w') as file:
+			file.write(message)
+		return {"keyboard": week_day_kbrd.get_body(), "message": "День недели:"}
 	elif message.lower() in arguments.DAYS:
 		try:
 			with open('tmp/' + user_id, 'r') as file:
 				user_group = file.read()
-			return{"keyboard":week_day_kbrd.get_body(), "message": reader(message.lower(), user_group)}
+			return {"keyboard":week_day_kbrd.get_body(), "message": reader(message.lower(), user_group)}
 		except:
-			# removing_tmp_file('tmp/'+user_id)
-			return {"keyboard": groups_spec_kbrd.get_body(), "message": "Ваша группа еще не добавлена, напишите администратору"}
+			return {"keyboard": groups_spec_kbrd.get_body(), "message": "Проверьте написание дня недели (пн, вт, ср)"}
 
 	else:
-		# убрано удаление, т.к. сервер может отправить 2 сообщения, и при этом удаляет временный файл, когда это не нужно
-		# removing_tmp_file('tmp/'+user_id)
-		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так, попробуйте заново набрать группу"}
+            return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так"}
 
 
 
@@ -106,9 +101,5 @@ def index():
 	return '<h1>hello</h1>'
 
 
-
-
-
-
-if __name__ == '__main__':
-	app.run()
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

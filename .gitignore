@@ -3,3 +3,7 @@ __pycache__
 db.sqlite3
 auto.sh
 tmp
+.bash_history
+.viminfo
+.local
+.cache
