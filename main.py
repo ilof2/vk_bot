@@ -41,10 +41,9 @@ def removing_tmp_file(path):
 def parsing(message, user_id):
 	user_id = str(user_id)
 	message = message.upper()
-	if message.lower() == 'перевыбрать группу':
+	if message.lower() == 'перевыбрать группу' or message.lower()=='начать':
 		removing_tmp_file('tmp/'+user_id)
 		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Первые 2 бувы своей специальности:"}
-
 
 
 	elif message in arguments.specializace:
@@ -59,16 +58,18 @@ def parsing(message, user_id):
 		with open('tmp/' + user_id, 'w') as file:
 			file.write(message)
 		return {"keyboard": week_day_kbrd.get_body(), "message": "День недели:"}
+
 	elif message.lower() in arguments.DAYS:
 		try:
 			with open('tmp/' + user_id, 'r') as file:
 				user_group = file.read()
 			return {"keyboard":week_day_kbrd.get_body(), "message": reader(message.lower(), user_group)}
 		except:
-			return {"keyboard": groups_spec_kbrd.get_body(), "message": "Проверьте написание дня недели (пн, вт, ср)"}
+	        	return {"keyboard": groups_spec_kbrd.get_body(), "message": "Проверьте написание дня недели (пн, вт, ср)"}
 
 	else:
             return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так"}
+
 
 
 
