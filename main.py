@@ -45,6 +45,8 @@ def parsing(message, user_id):
 		removing_tmp_file('tmp/'+user_id)
 		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Первые 2 бувы своей специальности:"}
 
+	elif message.lower() == '/help' or message.lower == '/помощь':
+		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Если не появилась клавиатура, напишите полное название вашей группы (ПО711, Ро611) и затем день недели (пн, вт)"}
 
 	elif message in arguments.specializace:
 		groups_num_kbrd = Keyboard(arguments.gnums[message])
