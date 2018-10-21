@@ -52,6 +52,15 @@ def read_user(user_id):
 	except:
 		return None
 
+def find_day(message):
+	message = str(message)
+	for days in arguments.DAYS:
+		print(days)
+		for day in days:
+			if message.lower() == day:
+				return days[0]
+	return None
+
 def parsing(message, user_id):
 	user_id = str(user_id)
 	message = message.upper()
@@ -61,7 +70,7 @@ def parsing(message, user_id):
 
 
 	elif message.lower() == '/help' or message.lower() == '/помощь':
-		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Если не появилась клавиатура, напишите полное название вашей группы (ПО711, Ро611) и затем день недели (пн, вт)"}
+		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Напишите полное название вашей группы (ПО711, Ро611) и затем день недели (вт, вторник либо 2)"}
 
 	elif message in arguments.specializace:
 		groups_num_kbrd = Keyboard(arguments.gnums[message])
@@ -73,15 +82,15 @@ def parsing(message, user_id):
 		write_user(user_id,message)
 		return {"keyboard": week_day_kbrd.get_body(), "message": "День недели:"}
 
-	elif message.lower() in arguments.DAYS:
+	elif find_day(message):
 		user_group = read_user(user_id)
 		if user_group:
-			return {"keyboard":week_day_kbrd.get_body(), "message": reader(message.lower(), user_group)}
+			return {"keyboard":week_day_kbrd.get_body(), "message": reader(find_day(message), user_group)}
 		else:
-			return {"keyboard": groups_spec_kbrd.get_body(), "message": "Проверьте написание дня недели (пн, вт, ср)"}
+			return {"keyboard": groups_spec_kbrd.get_body(), "message": "Ошибка группы. Вы не ввели группу"}
 
 	else:
-		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Что-то пошло не так"}
+		return {"keyboard": groups_spec_kbrd.get_body(), "message": "Напишите полное название вашей группы (ПО711, Ро611) и затем день недели (вт, вторник либо 2)"}
 
 
 
@@ -102,9 +111,9 @@ def main():
 				'message' : r['object']['text']
 			}
 			pars = parsing(params['message'], params['user_id'])
-			print(params['message'])
-			print(pars['keyboard'])
-			bot.send_message(params['user_id'], pars["message"], kbrt = pars["keyboard"], random_id = random.randint(100000000, 999999999))
+			print('message: ',params['message'])
+			print('answer: ',pars['message'])
+			bot.send_message(params['user_id'], pars['message'], kbrt = pars['keyboard'], random_id = random.randint(100000000, 999999999))
 			return 'ok'
 	else:
 		return 'ne ok'
