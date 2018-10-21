@@ -21,7 +21,7 @@ bot = Bot(keys.TOKEN)
 
 groups_spec_kbrd = Keyboard(arguments.specializace)
 groups_spec_kbrd.create_table()
-week_day_kbrd = Keyboard(arguments.DAYS)
+week_day_kbrd = Keyboard(arguments.DAYS_for_kbrd)
 week_day_kbrd.create_table()
 
 
