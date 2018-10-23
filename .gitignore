@@ -7,3 +7,5 @@ tmp
 .viminfo
 .local
 .cache
+keys.py
+
