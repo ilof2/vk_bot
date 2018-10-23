@@ -55,7 +55,6 @@ def read_user(user_id):
 def find_day(message):
 	message = str(message)
 	for days in arguments.DAYS:
-		print(days)
 		for day in days:
 			if message.lower() == day:
 				return days[0]
