@@ -3,8 +3,9 @@ import json
 class Keyboard():
 
 	def __init__(self, buttons):
-		self.body = {"one_time": False,"buttons": [[self.get_btn('сменить группу', 'positive')]]}
+		self.body = {"one_time": False,"buttons": [[self.__get_btn('сменить группу', 'positive')]]}
 		self.buttons = buttons
+		self.create_table()
 
 	def get_body(self):
 		return json.dumps(self.body, indent=2, ensure_ascii = False)
@@ -13,13 +14,13 @@ class Keyboard():
 	def __parting_list(self):
 		C = []
 		for button in self.buttons:
-			C.append(self.get_btn(button, 'primary'))
+			C.append(self.__get_btn(button, 'primary'))
 
 		half = len(C)//2
 		return C[:half], C[half:]
 		
 	# constructor for btn
-	def get_btn(self, text, color):
+	def __get_btn(self, text, color):
 		btn = { 
         		"action": { 
           			"type": "text", 
@@ -37,7 +38,7 @@ class Keyboard():
 		len_list = len(self.buttons)
 		if self.buttons:
 			if len_list == 1:
-				self.body = {"one_time": False,"buttons": [[self.get_btn(self.buttons[0], 'primary')],[self.get_btn('сменить группу', 'positive')]]}
+				self.body = {"one_time": False,"buttons": [[self.__get_btn(self.buttons[0], 'primary')],[self.__get_btn('сменить группу', 'positive')]]}
 			else:
 				A, B = self.__parting_list()
 				self.body['buttons'].insert(0, B)
