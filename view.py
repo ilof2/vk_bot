@@ -27,9 +27,10 @@ answers = {
 def number_of_week():
 	from datetime import datetime
 	week = datetime.now().isocalendar()[1]
+	date = datetime.today().strftime("%d/%m/%Y")
 	if week%2 == 0:
-		return 'Четная неделя\n'
-	return 'Нечетная неделя\n'
+		return 'Сегодня, {}. Четная неделя\n'.format(date)
+	return 'Сегодня, {}. Нечетная неделя\n'.format(date)
 
 def find_day(message):
 	message = str(message)
